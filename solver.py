@@ -100,22 +100,24 @@ def solve(graph, num_buses, size_bus, constraints):
 
     #Process Heuristics on G and G'
     points1, buses1 = heuristic_one(graph_prime, num_buses, size_bus, constraints, rowdy_number)
-    #points2, buses2 = heuristic_two(graph_prime, num_buses, size_bus, constraints, semi_popular_students)
+    points2, buses2 = heuristic_two(graph_prime, num_buses, size_bus, constraints, semi_popular_students)
     points3, buses3 = heuristic_three(graph_prime, num_buses, size_bus, constraints, most_popular_students)
 
+    #Do Optimization (AKA swapping students for specific amount of iterations!)
+
     #Compare Results
-    #best_result = max(points1, points2, points3)
-    best_result = max(points1, points3)
+    best_result = max(points1, points2, points3)
+    # best_result = max(points1, points3)
 
     if (best_result == points1):
         best_buses = buses1
-    #elif (best_result == points2):
-        #best_buses = buses2
+    elif (best_result == points2):
+        best_buses = buses2
     else:
         best_buses = buses3
 
     attendance(best_buses)
-    #Do Optimization (AKA swapping students for specific amount of iterations!)
+
     loner = ''
     blacklist = []
 
